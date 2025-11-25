@@ -1,0 +1,2903 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BANNR Systems | Neuroscience-Based Performance Systems</title>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description"
+    content="Neuroscience-based performance coaching for sustainable high performance. Systems for the human machine — built on science, stress-tested in real life." />
+  <meta name="keywords"
+    content="performance coaching, neuroscience, endurance training, systems thinking, productivity, Bradley Banner" />
+  <meta name="author" content="Bradley Banner" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://bannrsystems.com/" />
+  <meta property="og:title" content="BANNR Systems | Neuroscience-Based Performance Systems" />
+  <meta property="og:description"
+    content="Systems for the human machine — built on neuroscience, stress-tested in real life." />
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://bannrsystems.com/" />
+  <meta property="twitter:title" content="BANNR Systems | Neuroscience-Based Performance Systems" />
+  <meta property="twitter:description"
+    content="Systems for the human machine — built on neuroscience, stress-tested in real life." />
+
+  <!-- Favicon -->
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ---------- GLOBAL RESET & BASE STYLES ---------- */
+    /* ========== MODAL STYLES ========== */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      padding: 20px;
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .modal-overlay .intake-hub-card {
+      max-height: 90vh;
+      overflow-y: auto;
+      margin: 0;
+      position: relative;
+      transform: translateY(20px);
+      transition: transform 0.3s ease;
+    }
+
+    .modal-overlay.open .intake-hub-card {
+      transform: translateY(0);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--text-secondary);
+      cursor: pointer;
+      padding: 4px;
+      line-height: 1;
+      z-index: 10;
+      transition: color 0.2s ease;
+    }
+
+    .modal-close:hover {
+      color: var(--text-primary);
+    }
+
+    /* Prevent body scroll when modal is open */
+    body.modal-open {
+      overflow: hidden;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      background: #ffffff;
+      color: #0f172a;
+      line-height: 1.7;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    :root {
+      --accent: #1e40af;
+      --accent-hover: #1e3a8a;
+      --accent-soft: rgba(30, 64, 175, 0.06);
+      --border-color: #e2e8f0;
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-tertiary: #64748b;
+      --bg-gray: #fafafa;
+      --max-width: 1200px;
+      --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .container {
+      width: 100%;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    section {
+      padding: 120px 0;
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
+    }
+
+    h2 {
+      font-size: 2.5rem;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+
+    p {
+      color: var(--text-secondary);
+      font-size: 1rem;
+    }
+
+    /* ---------- SCROLL PROGRESS BAR ---------- */
+    #scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #1e40af, #3b82f6);
+      z-index: 9999;
+      transition: width 0.1s ease-out;
+      width: 0%;
+    }
+
+    /* ---------- LOADING ANIMATION ---------- */
+    #page-loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+
+    #page-loader.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .loader-content {
+      text-align: center;
+    }
+
+    .loader-logo {
+      font-size: 1.2rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+    }
+
+    .loader-bar {
+      width: 120px;
+      height: 2px;
+      background: #e5e7eb;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .loader-progress {
+      width: 30%;
+      height: 100%;
+      background: var(--accent);
+      animation: loading 1.2s ease-in-out infinite;
+    }
+
+    @keyframes loading {
+      0% {
+        transform: translateX(-100%);
+      }
+
+      50% {
+        transform: translateX(300%);
+      }
+
+      100% {
+        transform: translateX(-100%);
+      }
+    }
+
+    /* ---------- SCROLL ANIMATIONS ---------- */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ---------- NAVIGATION (STICKY) ---------- */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px) saturate(180%);
+      background: rgba(255, 255, 255, 0.9);
+      border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+      transition: all var(--transition);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      height: 72px;
+    }
+
+    .logo {
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      font-size: 15px;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 101;
+      transition: opacity var(--transition);
+    }
+
+    .logo span {
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: var(--text-primary);
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+    }
+
+    .logo:hover {
+      opacity: 0.7;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 4px;
+      font-size: 14px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      padding: 8px 16px;
+      border-radius: 8px;
+      transition: all var(--transition);
+      color: var(--text-tertiary);
+      font-weight: 500;
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus {
+      background: var(--accent-soft);
+      color: var(--accent);
+      outline: none;
+    }
+
+    /* ---------- MOBILE MENU ---------- */
+    .mobile-menu-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 8px;
+      z-index: 101;
+      background: transparent;
+      border: none;
+    }
+
+    .mobile-menu-toggle span {
+      width: 24px;
+      height: 2px;
+      background: var(--text-primary);
+      transition: all 0.3s ease;
+      display: block;
+    }
+
+    .mobile-menu-toggle.active span:nth-child(1) {
+      transform: rotate(45deg) translate(7px, 7px);
+    }
+
+    .mobile-menu-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .mobile-menu-toggle.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(6px, -6px);
+    }
+
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 100%;
+      max-width: 320px;
+      height: 100vh;
+      background: white;
+      box-shadow: -8px 0 40px rgba(0, 0, 0, 0.1);
+      transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 99;
+      padding: 100px 24px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .mobile-menu.active {
+      right: 0;
+    }
+
+    .mobile-menu-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      z-index: 98;
+    }
+
+    .mobile-menu-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .mobile-menu a {
+      padding: 16px;
+      color: var(--text-primary);
+      font-size: 16px;
+      font-weight: 500;
+      border-radius: 8px;
+      transition: background 0.2s ease;
+    }
+
+    .mobile-menu a:hover {
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    /* ---------- HERO SECTION ---------- */
+    #home {
+      padding: 120px 0 140px;
+      background: linear-gradient(180deg, #fafafa 0%, #ffffff 100%);
+    }
+
+    .hero-content {
+      max-width: 720px;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.75rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .hero-title {
+      font-size: 3.2rem;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .hero-subtitle {
+      font-size: 1.15rem;
+      line-height: 1.6;
+      color: var(--text-secondary);
+      margin-bottom: 32px;
+      font-weight: 400;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(30, 64, 175, 0.2);
+    }
+
+    .btn-primary:hover,
+    .btn-primary:focus {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(30, 64, 175, 0.3);
+      outline: none;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--accent);
+      border: 1.5px solid var(--border-color);
+    }
+
+    .btn-secondary:hover,
+    .btn-secondary:focus {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      outline: none;
+    }
+
+    .why-preview {
+      margin-top: 28px;
+      padding: 16px 20px;
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      background: #ffffff;
+    }
+
+    .why-preview p {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+    }
+
+    .why-preview-link {
+      display: inline-block;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .why-preview-link:hover {
+      color: var(--accent-hover);
+    }
+
+    /* ---------- SECTION STYLES ---------- */
+    .section-header {
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto 64px;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+
+    .section-subtitle {
+      font-size: 1.125rem;
+      line-height: 1.7;
+      color: var(--text-tertiary);
+      font-weight: 400;
+    }
+
+    /* ---------- ABOUT SECTION ---------- */
+    .about-section {
+      background: var(--bg-gray);
+    }
+
+    .about-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .about-text {
+      font-size: 1.0625rem;
+      line-height: 1.8;
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+    }
+
+    .about-highlight {
+      background: #ffffff;
+      padding: 32px;
+      border-radius: 16px;
+      border: 1px solid var(--border-color);
+      margin-top: 40px;
+    }
+
+    .about-highlight h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+    }
+
+    .about-highlight-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .about-highlight-item {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      padding-left: 22px;
+      position: relative;
+    }
+
+    .about-highlight-item::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* ---------- WHY SECTION ---------- */
+    .why-section {
+      background: #ffffff;
+    }
+
+    .why-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .why-text {
+      font-size: 1.0625rem;
+      line-height: 1.8;
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+    }
+
+    /* ---------- PHILOSOPHY SECTION ---------- */
+    .philosophy-section {
+      background: var(--bg-gray);
+    }
+
+    .philosophy-intro {
+      max-width: 900px;
+      margin: 0 auto 48px auto;
+      text-align: center;
+      font-size: 1.0625rem;
+      line-height: 1.7;
+      color: var(--text-secondary);
+    }
+
+    .philosophy-deck-container {
+      max-width: 700px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .philosophy-deck {
+      position: relative;
+      min-height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .philosophy-card {
+      background: #ffffff;
+      padding: 40px 36px;
+      border-radius: 20px;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      position: absolute;
+      width: 100%;
+      opacity: 0;
+      transform: translateX(40px);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none;
+    }
+
+    .philosophy-card.active {
+      opacity: 1;
+      transform: translateX(0);
+      pointer-events: auto;
+    }
+
+    .philosophy-card.prev {
+      opacity: 0;
+      transform: translateX(-40px);
+    }
+
+    .philosophy-card-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+      line-height: 1.4;
+    }
+
+    .philosophy-card-description {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--text-secondary);
+    }
+
+    .deck-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 32px;
+      gap: 16px;
+    }
+
+    .deck-nav-btn {
+      background: #ffffff;
+      border: 1.5px solid var(--border-color);
+      border-radius: 10px;
+      padding: 12px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: all var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .deck-nav-btn:hover:not(:disabled) {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      transform: translateY(-2px);
+    }
+
+    .deck-nav-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .deck-progress {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .deck-dots {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .deck-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--border-color);
+      transition: all 0.3s ease;
+    }
+
+    .deck-dot.active {
+      background: var(--accent);
+      width: 24px;
+      border-radius: 4px;
+    }
+
+    @media (max-width: 640px) {
+      .philosophy-card {
+        padding: 32px 24px;
+      }
+
+      .deck-nav-btn {
+        padding: 10px 16px;
+        font-size: 13px;
+      }
+
+      .deck-progress {
+        font-size: 14px;
+      }
+    }
+
+    /* ---------- SERVICES SECTION ---------- */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+    }
+
+    .service-card {
+      background: #ffffff;
+      padding: 24px 20px;
+      border-radius: 16px;
+      border: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .service-card:hover {
+      border-color: #cbd5e1;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06);
+      transform: translateY(-4px);
+    }
+
+    .service-title {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .service-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+
+    .service-list li {
+      font-size: 0.9375rem;
+      line-height: 1.6;
+      color: var(--text-tertiary);
+      padding-left: 18px;
+      position: relative;
+    }
+
+    .service-list li::before {
+      content: "▹";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .service-link {
+      font-size: 0.9375rem;
+      color: var(--accent);
+      font-weight: 500;
+      margin-top: auto;
+      transition: color 0.2s ease;
+    }
+
+    .service-link:hover {
+      color: var(--accent-hover);
+    }
+
+    /* ---------- SUBSTACK CTA SECTION ---------- */
+    .substack-cta {
+      background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+      color: #ffffff;
+      padding: 80px 0;
+    }
+
+    .substack-content {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .substack-title {
+      font-size: 2.25rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: #ffffff;
+    }
+
+    .substack-description {
+      font-size: 1.125rem;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 32px;
+    }
+
+    .btn-substack {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      background: #ffffff;
+      color: var(--accent);
+      font-size: 15px;
+      font-weight: 600;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+
+    .btn-substack:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    }
+
+    /* ---------- CONTACT SECTION ---------- */
+    .contact-section {
+      background: var(--bg-gray);
+    }
+
+    .contact-content {
+      max-width: 680px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 40px;
+      flex-wrap: wrap;
+    }
+
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 24px;
+      background: #ffffff;
+      color: var(--accent);
+      font-size: 15px;
+      font-weight: 600;
+      border-radius: 10px;
+      border: 1.5px solid var(--border-color);
+      transition: all var(--transition);
+    }
+
+    .contact-link:hover {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      transform: translateY(-2px);
+    }
+
+    /* ---------- FOOTER ---------- */
+    footer {
+      padding: 64px 0 32px;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .footer-content {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 32px;
+      text-align: center;
+    }
+
+    .footer-text {
+      font-size: 0.875rem;
+      color: #94a3b8;
+      margin-bottom: 8px;
+    }
+
+    .footer-tagline {
+      font-size: 0.8125rem;
+      color: #cbd5e1;
+    }
+
+    /* ---------- SCROLL TO TOP BUTTON ---------- */
+    #scroll-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 48px;
+      height: 48px;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.2s ease;
+      z-index: 40;
+    }
+
+    #scroll-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    #scroll-top:hover {
+      transform: translateY(-3px);
+      background: var(--accent-hover);
+    }
+
+    .icon {
+      width: 18px;
+      height: 18px;
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 900px) {
+      .services-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      .mobile-menu-toggle {
+        display: flex;
+      }
+
+      #home {
+        padding: 80px 0 100px;
+      }
+
+      .hero-title {
+        font-size: 2.5rem;
+      }
+
+      .hero-subtitle {
+        font-size: 1.05rem;
+      }
+
+      section {
+        padding: 80px 0;
+      }
+
+      .section-title {
+        font-size: 2rem;
+      }
+
+      .section-subtitle {
+        font-size: 1rem;
+      }
+
+      .substack-cta {
+        padding: 64px 0;
+      }
+
+      .substack-title {
+        font-size: 1.9rem;
+      }
+
+      .container,
+      .nav,
+      .footer-content {
+        padding-left: 24px;
+        padding-right: 24px;
+      }
+
+      .hero-actions,
+      .contact-links {
+        flex-direction: column;
+      }
+
+      .btn-primary,
+      .btn-secondary,
+      .btn-substack,
+      .contact-link {
+        width: 100%;
+        justify-content: center;
+      }
+
+      #scroll-top {
+        bottom: 20px;
+        right: 20px;
+        width: 44px;
+        height: 44px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-title {
+        font-size: 2rem;
+      }
+
+      .section-title {
+        font-size: 1.75rem;
+      }
+    }
+
+    /* ---------- ACCESSIBILITY ---------- */
+    .skip-to-main {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: var(--accent);
+      color: white;
+      padding: 8px 16px;
+      text-decoration: none;
+      border-radius: 4px;
+      z-index: 100;
+    }
+
+    .skip-to-main:focus {
+      top: 10px;
+      left: 10px;
+    }
+
+    *:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    /* ---------- INTAKE HUB ---------- */
+    .intake-hub-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+      padding: 40px;
+      margin-top: 40px;
+      text-align: left;
+    }
+
+    .intake-progress-container {
+      margin-bottom: 32px;
+    }
+
+    .intake-progress-text {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .intake-progress-bar {
+      width: 100%;
+      height: 4px;
+      background: #e2e8f0;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .intake-progress-fill {
+      height: 100%;
+      background: var(--accent);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    .intake-step {
+      display: none;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .intake-step.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .step-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+
+    .step-description {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+
+    .form-input,
+    .form-textarea,
+    .form-select {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1.5px solid var(--border-color);
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 1rem;
+      color: var(--text-primary);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .form-input:focus,
+    .form-textarea:focus,
+    .form-select:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-soft);
+    }
+
+    .form-textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .radio-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .radio-option {
+      position: relative;
+    }
+
+    .radio-option input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .radio-label {
+      display: flex;
+      align-items: center;
+      padding: 16px;
+      border: 1.5px solid var(--border-color);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .radio-label:hover {
+      background: var(--bg-gray);
+    }
+
+    .radio-option input[type="radio"]:checked+.radio-label {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    .radio-circle {
+      width: 20px;
+      height: 20px;
+      border: 2px solid #cbd5e1;
+      border-radius: 50%;
+      margin-right: 12px;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .radio-option input[type="radio"]:checked+.radio-label .radio-circle {
+      border-color: var(--accent);
+    }
+
+    .radio-option input[type="radio"]:checked+.radio-label .radio-circle::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 10px;
+      height: 10px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+
+    .form-actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 32px;
+      gap: 16px;
+    }
+
+    .btn-back {
+      background: transparent;
+      color: var(--text-tertiary);
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 12px 20px;
+      border-radius: 8px;
+      transition: color 0.2s ease;
+    }
+
+    .btn-back:hover {
+      color: var(--text-primary);
+      background: var(--bg-gray);
+    }
+
+    .btn-next {
+      background: var(--accent);
+      color: #ffffff;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 12px 32px;
+      border-radius: 8px;
+      transition: background 0.2s ease, transform 0.2s ease;
+      margin-left: auto;
+    }
+
+    .btn-next:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+    }
+
+    .success-message {
+      text-align: center;
+      padding: 40px 0;
+      display: none;
+    }
+
+    .success-icon {
+      width: 64px;
+      height: 64px;
+      color: #10b981;
+      margin-bottom: 24px;
+    }
+
+    @media (max-width: 640px) {
+      .intake-hub-card {
+        padding: 24px;
+      }
+
+      .form-actions {
+        flex-direction: column-reverse;
+      }
+
+      .btn-next,
+      .btn-back {
+        width: 100%;
+        margin-left: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Accessibility -->
+  <a href="#home" class="skip-to-main">Skip to main content</a>
+
+  <!-- Scroll Progress Bar -->
+  <div id="scroll-progress"></div>
+
+  <!-- Page Loader -->
+  <div id="page-loader">
+    <div class="loader-content">
+      <div class="loader-logo">BANNR SYSTEMS</div>
+      <div class="loader-bar">
+        <div class="loader-progress"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Menu Overlay -->
+  <div class="mobile-menu-overlay" id="mobile-overlay"></div>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="#home" class="mobile-link">Home</a>
+    <a href="#about" class="mobile-link">About</a>
+    <a href="#why" class="mobile-link">Why</a>
+    <a href="#philosophy" class="mobile-link">Philosophy</a>
+    <a href="#services" class="mobile-link">Services</a>
+    <a href="#substack" class="mobile-link">Substack</a>
+    <a href="#contact" class="mobile-link">Contact</a>
+  </div>
+
+  <!-- ===== NAVIGATION ===== -->
+  <header>
+    <nav class="nav">
+      <a href="#home" class="logo">
+        <span>BS</span>
+        BANNR SYSTEMS
+      </a>
+      <div class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#why">Why</a>
+        <a href="#philosophy">Philosophy</a>
+        <a href="#services">Services</a>
+        <a href="#substack">Substack</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <button class="mobile-menu-toggle" id="mobile-toggle" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </nav>
+  </header>
+
+  <!-- ===== HERO SECTION ===== -->
+  <section id="home">
+    <div class="container">
+      <div class="hero-content fade-in">
+        <div class="hero-eyebrow">You can't cheat biology.</div>
+        <h1 class="hero-title">
+          Systems for the human machine.
+        </h1>
+        <p class="hero-subtitle">
+          Most people live far below what their body and mind are capable of. BANNR Systems builds simple, brutal-honest
+          routines around training, nutrition, and daily life so your days run smoother, your body performs better, and
+          your system can actually hold the load you put on it.
+        </p>
+        <div class="hero-actions">
+          <a href="#services" class="btn-primary">
+            Build Your System
+            <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </a>
+          <a href="https://bradleybanner.substack.com/" target="_blank" rel="noopener noreferrer" class="btn-secondary">
+            <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+            </svg>
+            Read the Philosophy
+          </a>
+          <button data-modal-target="modal-overall" class="btn-primary" style="cursor: pointer;">
+            Apply for Coaching
+            <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </button>
+        </div>
+        <div class="why-preview">
+          <p>
+            Most high performers aren't failing because they lack motivation. They're failing because their systems
+            can't hold the load of the life they're trying to live. BANNR Systems exists to fix that. Built from
+            neuroscience, lived experience, and disciplined experimentation, it is a framework for people who want
+            stability, clarity, and sustainable performance, not hacks or hype. If you want to know why I built it, read
+            the full story.
+          </p>
+          <a href="#why" class="why-preview-link">Read the full Why →</a>
+        </div>
+        <p style="margin-top: 24px; font-size: 0.9rem; color: var(--text-tertiary); font-weight: 500;">Systems that hold
+          under load.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ABOUT SECTION ===== -->
+  <section id="about" class="about-section">
+    <div class="container">
+      <div class="section-header fade-in">
+        <h2 class="section-title">About BANNR Systems</h2>
+        <p class="section-subtitle">
+          A personal operating system built from neuroscience, endurance, and disciplined experimentation.
+        </p>
+      </div>
+      <div class="about-content fade-in">
+        <p class="about-text">
+          I'm Bradley Banner, trained in neuroscience, an endurance athlete, and the creator of BANNR Systems. This
+          began as the structure I needed to carry a demanding life of studying, training, lifting, working, and
+          creating without burning out.
+        </p>
+        <p class="about-text">
+          BANNR Systems is the result of testing what actually holds under pressure. No hacks, no heroics, just systems
+          aligned with biology for people who expect more from themselves. I now use these same principles with
+          students, founders, and operators who want real performance without the chaos.
+        </p>
+        <div class="about-highlight">
+          <h3>How the system works</h3>
+          <div class="about-highlight-list">
+            <div class="about-highlight-item">
+              Science-backed frameworks rooted in neuroscience and physiology.
+            </div>
+            <div class="about-highlight-item">
+              Personalization to your constraints, capacity, and actual life.
+            </div>
+            <div class="about-highlight-item">
+              Sustainable protocols designed for long-term output, not quick spikes.
+            </div>
+            <div class="about-highlight-item">
+              Lived testing through endurance sport and high-pressure environments.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== WHY SECTION ===== -->
+  <section id="why" class="why-section">
+    <div class="container">
+      <div class="section-header fade-in">
+        <h2 class="section-title">Why BANNR Systems Exists</h2>
+        <p class="section-subtitle">
+          The honest answer to why I'm doing this — and why I believe it matters.
+        </p>
+      </div>
+      <div class="why-content fade-in">
+        <p class="why-text">
+          I'm not building BANNR Systems because I think I have everything figured out. I'm building it because I know
+          what it feels like to carry more than your system can support. School, training, expectations, and pressure
+          all hit at once, and I had to create something real or my life was going to collapse under the weight.
+        </p>
+        <p class="why-text">
+          I'm 22. I don't have a PhD or decades of credentials. What I do have is a neuroscience degree, a philosophy
+          minor, years of endurance training, and a life that forced me to take biology seriously. In class, I learned
+          how the nervous system, hormones, sleep, and stress actually work. In training and daily life, I learned
+          exactly what happens when you ignore that science. BANNR Systems sits where those two worlds overlap: the
+          theory of how the human body works, and the reality of living inside one under load.
+        </p>
+        <p class="why-text">
+          I don't believe every problem is mental, and I don't believe every problem is physical. Life happens. Grief,
+          breakups, family stress, pressure, loneliness, and all of those experiences matter. But I also learned that
+          when your sleep, nutrition, training, and recovery are unstable, everything else becomes heavier than it
+          should be. When your system is steady, you can face the emotional side of life instead of being overwhelmed by
+          it.
+        </p>
+        <p class="why-text">
+          BANNR Systems exists for people who know they're capable of more but can feel their current structure holding
+          them back. People who are tired of cycling between full intensity and complete burnout. People who want more
+          than quick fixes or hype, but also want something more practical than disconnected theory. The goal is simple:
+          build a life your biology can sustain and build a structure that can support your ambitions over time.
+        </p>
+        <p class="why-text">
+          I'm not here to save anyone or pretend I'm above the work. I'm in it myself. I study, I train, I test, and I
+          refine. BANNR Systems is my way of turning that process into something useful for other people, especially
+          students, young professionals, and anyone living a modern, high-pressure life who wants discipline, peace, and
+          real performance at the same time. If this resonates, the rest of the site will show you how we can build your
+          system around those ideas.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PHILOSOPHY SECTION ===== -->
+  <section id="philosophy" class="philosophy-section">
+    <div class="container">
+      <div class="section-header fade-in">
+        <h2 class="section-title">Philosophy</h2>
+        <p class="section-subtitle">
+          Ten laws for building a human capable of more.
+        </p>
+      </div>
+      <p class="philosophy-intro fade-in">
+        Everything inside BANNR is built from lived experience, neuroscience, and the reality that biology doesn't care
+        about excuses, only about inputs, load, and recovery.
+      </p>
+      <div class="philosophy-deck-container fade-in">
+        <div class="philosophy-deck">
+          <div class="philosophy-card active" data-index="0">
+            <h3 class="philosophy-card-title">1. Peace Has Physics</h3>
+            <p class="philosophy-card-description">
+              Calm isn't a vibe. It's a physiological state. Nervous system load, recovery, breath, and structure
+              determine your inner world. Peace isn't mystical. It's engineered.
+            </p>
+          </div>
+
+          <div class="philosophy-card" data-index="1">
+            <h3 class="philosophy-card-title">2. Hormones Tell the Truth</h3>
+            <p class="philosophy-card-description">
+              Your chemistry exposes everything: stress, sleep, discipline, habits. Mood isn't mysterious and energy
+              isn't random. If the body is out of balance, life will be too.
+            </p>
+          </div>
+
+          <div class="philosophy-card" data-index="2">
+            <h3 class="philosophy-card-title">3. Fuel Determines Output</h3>
+            <p class="philosophy-card-description">
+              The human machine runs on carbs, protein, hydration, and sodium, not wishful thinking. Under-fueled bodies
+              don't perform. They break. Performance begins at the cellular level.
+            </p>
+          </div>
+
+          <div class="philosophy-card" data-index="3">
+            <h3 class="philosophy-card-title">4. Identity Is Repetition</h3>
+            <p class="philosophy-card-description">
+              You are not what you intend. You are what you repeat. Systems write character. Behavior shapes belief.
+              Consistency builds the person you claim you are.
+            </p>
+          </div>
+
+          <div class="philosophy-card" data-index="4">
+            <h3 class="philosophy-card-title">5. Calm Requires Discipline</h3>
+            <p class="philosophy-card-description">
+              Everyone wants peace; few want the structure that creates it. Bedtimes, boundaries, routines, and friction
+              are the real ingredients of a calm life. Peace is a discipline, not a mood.
+            </p>
+          </div>
+
+          <div class="philosophy-card" data-index="5">
+            <h3 class="philosophy-card-title">6. Failure Is the Data You Need</h3>
+            <p class="philosophy-card-description">
+              Crash, burn, and rebuild. That cycle is where capacity is revealed. Failure isn't flaw. It's measurement.
+              The nervous system adapts by breaking and repairing. You get better by going through it, not around it.
+            </p>
+          </div>
+
+          <div class="philosophy-card" data-index="6">
+            <h3 class="philosophy-card-title">7. Momentum Beats Motivation</h3>
+            <p class="philosophy-card-description">
+              Motivation is unreliable chemistry. Momentum is physics. Start first. Feel later. Action generates its own
+              fuel — this is the real neuroscience of discipline.
+            </p>
+          </div>
+
+          <div class="philosophy-card" data-index="7">
+            <h3 class="philosophy-card-title">8. Optimize Like a Scientist</h3>
+            <p class="philosophy-card-description">
+              Treat yourself like the experiment: test, track, refine. Optimization isn't obsession. It's gratitude for
+              your potential. Curiosity + discipline = evolution.
+            </p>
+          </div>
+
+          <div class="philosophy-card" data-index="8">
+            <h3 class="philosophy-card-title">9. Live as a Modern Athlete</h3>
+            <p class="philosophy-card-description">
+              An athlete today isn't just someone who trains. It's someone who lives with intention. Sleep, stress,
+              structure, strength, endurance, nutrition, focus. The entire system is the sport.
+            </p>
+          </div>
+
+          <div class="philosophy-card" data-index="9">
+            <h3 class="philosophy-card-title">10. Discipline Becomes Identity</h3>
+            <p class="philosophy-card-description">
+              Early discipline is force. Mature discipline is alignment, the quiet feeling of doing exactly what your
+              life demands. When effort and peace merge, discipline stops being hard and starts being who you are.
+            </p>
+          </div>
+        </div>
+
+        <div class="deck-controls">
+          <button class="deck-nav-btn" id="deck-prev" disabled>
+            ← Previous
+          </button>
+          <div class="deck-progress">
+            <span id="deck-current">1</span> / <span id="deck-total">10</span>
+            <div class="deck-dots">
+              <div class="deck-dot active"></div>
+              <div class="deck-dot"></div>
+              <div class="deck-dot"></div>
+              <div class="deck-dot"></div>
+              <div class="deck-dot"></div>
+              <div class="deck-dot"></div>
+              <div class="deck-dot"></div>
+              <div class="deck-dot"></div>
+              <div class="deck-dot"></div>
+              <div class="deck-dot"></div>
+            </div>
+          </div>
+          <button class="deck-nav-btn" id="deck-next">
+            Next →
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SERVICES SECTION ===== -->
+  <section id="services">
+    <div class="container">
+      <div class="section-header fade-in">
+        <h2 class="section-title">Services</h2>
+        <p class="section-subtitle">
+          A small number of 1:1 clients and projects for people who want a real operating system, not another generic
+          plan.
+        </p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card fade-in">
+          <h3 class="service-title">Life Systems Coaching</h3>
+          <p style="font-size: 0.9375rem; line-height: 1.7; color: var(--text-secondary); margin-bottom: 12px;">
+            Build a daily and weekly system that makes your life feel stable, controlled, and actually capable of
+            holding your goals.
+          </p>
+          <button data-modal-target="modal-life" class="service-link"
+            style="background: none; border: none; padding: 0; font: inherit; cursor: pointer;">Start your system
+            →</button>
+        </div>
+
+        <div class="service-card fade-in">
+          <h3 class="service-title">Strength & Endurance Coaching</h3>
+          <p style="font-size: 0.9375rem; line-height: 1.7; color: var(--text-secondary); margin-bottom: 12px;">
+            Training blocks built around your real life. Hybrid plans that respect physiology, recovery, and the fact
+            that you have more going on than just the gym.
+          </p>
+          <button data-modal-target="modal-strength" class="service-link"
+            style="background: none; border: none; padding: 0; font: inherit; cursor: pointer;">Build your engine
+            →</button>
+        </div>
+
+        <div class="service-card fade-in">
+          <h3 class="service-title">Nutrition Coaching</h3>
+          <p style="font-size: 0.9375rem; line-height: 1.7; color: var(--text-secondary); margin-bottom: 12px;">
+            Simple, performance-focused nutrition that matches your training and lifestyle. Whole foods, high protein,
+            high carbs, real hydration, zero obsession.
+          </p>
+          <button data-modal-target="modal-nutrition" class="service-link"
+            style="background: none; border: none; padding: 0; font: inherit; cursor: pointer;">Dial in your inputs
+            →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SUBSTACK CTA ===== -->
+  <section id="substack" class="substack-cta">
+    <div class="container">
+      <div class="substack-content fade-in">
+        <h2 class="substack-title">Systems for the Human Machine</h2>
+        <p class="substack-description">
+          Essays on discipline, biology, and systems. If you want to see how I think before you work with me,
+          start with the writing.
+        </p>
+        <a href="https://bradleybanner.substack.com/" target="_blank" rel="noopener noreferrer" class="btn-substack">
+          <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+          </svg>
+          Read on Substack
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT SECTION ===== -->
+  <section id="contact" class="contact-section">
+    <div class="container">
+      <div class="contact-content fade-in">
+        <h2 class="section-title">Start Your System</h2>
+        <p class="section-subtitle">
+          If you're serious about building a life that can hold real performance load, reach out.
+          We'll see if there's a fit for 1:1 work or a specific project.
+        </p>
+
+        <div class="contact-links" style="display: flex; flex-direction: column; gap: 16px; align-items: center;">
+          <button data-modal-target="modal-overall" class="contact-link"
+            style="background: var(--accent); color: #ffffff; border: none; cursor: pointer; justify-content: center;">
+            Apply for Coaching
+          </button>
+
+          <div style="display: flex; gap: 24px; margin-top: 8px;">
+            <a href="mailto:brad@bannrsystems.com" class="contact-link"
+              style="background: transparent; color: var(--text-primary); border: 1px solid var(--border-color);">
+              Email BANNR Systems
+            </a>
+            <a href="https://www.linkedin.com/in/bradleybanner/" target="_blank" rel="noopener noreferrer"
+              class="contact-link"
+              style="background: transparent; color: var(--text-primary); border: 1px solid var(--border-color);">
+              Connect on LinkedIn
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MODALS ===== -->
+
+  <!-- 1. OVERALL INTAKE MODAL -->
+  <div class="modal-overlay" id="modal-overall" aria-hidden="true">
+    <div class="intake-hub-card">
+      <button class="modal-close" aria-label="Close modal">&times;</button>
+      <div class="section-header" style="margin-bottom: 24px;">
+        <h2 class="section-title">Start Your System</h2>
+        <p class="section-subtitle">General coaching intake. Let's figure out where you need to start.</p>
+      </div>
+      <!-- Success Message -->
+      <div id="intake-overall-success" class="success-message" style="display: none;">
+        <svg class="success-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        <h3 class="section-title" style="font-size: 1.8rem; margin-bottom: 16px;">System Received</h3>
+        <p class="section-subtitle">
+          Thanks for filling this out. I'll review your intake and email you if it's a fit.
+        </p>
+      </div>
+
+      <!-- Intake Form -->
+      <form class="intake-form" data-flow="overall">
+        <div class="intake-progress-container">
+          <span class="intake-progress-text">Step 1 of 4</span>
+          <div class="intake-progress-bar">
+            <div class="intake-progress-fill"></div>
+          </div>
+        </div>
+
+        <!-- Step 1: Foundation (Demographics) -->
+        <div class="intake-step active">
+          <h3 class="step-title">The Foundation</h3>
+          <p class="step-description">Tell me a bit about who you are.</p>
+
+          <div class="form-group">
+            <label class="form-label" for="name-overall">Full Name</label>
+            <input type="text" class="form-input" id="name-overall" name="name" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="email-overall">Email Address</label>
+            <input type="email" class="form-input" id="email-overall" name="email" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="phone-overall">Phone Number</label>
+            <input type="tel" class="form-input" id="phone-overall" name="phone" required>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div class="form-group">
+              <label class="form-label" for="location-overall">Location</label>
+              <input type="text" class="form-input" id="location-overall" name="location" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="age-overall">Age</label>
+              <input type="number" class="form-input" id="age-overall" name="age" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="role-overall">Current Role / Student Status</label>
+            <input type="text" class="form-input" id="role-overall" name="role"
+              placeholder="Student, founder, employee, athlete, etc." required>
+          </div>
+        </div>
+
+        <!-- Step 2: Choose Path -->
+        <div class="intake-step">
+          <h3 class="step-title">Where do you want to start?</h3>
+          <p class="step-description">Which system are you most interested in right now?</p>
+
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" name="flow" id="flow-life-overall" value="life" required>
+              <label class="radio-label" for="flow-life-overall">
+                <div class="radio-circle"></div>
+                <div>
+                  <div style="font-weight: 600; color: var(--text-primary);">Life Systems Coaching</div>
+                </div>
+              </label>
+            </div>
+
+            <div class="radio-option">
+              <input type="radio" name="flow" id="flow-strength-overall" value="strength">
+              <label class="radio-label" for="flow-strength-overall">
+                <div class="radio-circle"></div>
+                <div>
+                  <div style="font-weight: 600; color: var(--text-primary);">Strength & Endurance Coaching</div>
+                </div>
+              </label>
+            </div>
+
+            <div class="radio-option">
+              <input type="radio" name="flow" id="flow-nutrition-overall" value="nutrition">
+              <label class="radio-label" for="flow-nutrition-overall">
+                <div class="radio-circle"></div>
+                <div>
+                  <div style="font-weight: 600; color: var(--text-primary);">Nutrition Coaching</div>
+                </div>
+              </label>
+            </div>
+
+            <div class="radio-option">
+              <input type="radio" name="flow" id="flow-unsure-overall" value="unsure">
+              <label class="radio-label" for="flow-unsure-overall">
+                <div class="radio-circle"></div>
+                <div>
+                  <div style="font-weight: 600; color: var(--text-primary);">I'm not sure yet</div>
+                </div>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2: Flow Specific -->
+        <div class="intake-step">
+          <h3 class="step-title">Deep Dive</h3>
+          <p class="step-description">Let's get into the specifics.</p>
+
+          <!-- Life Systems Questions -->
+          <div class="flow-questions" data-flow="life" style="display: none;">
+            <div class="form-group">
+              <label class="form-label" for="life-week-overall">What does a typical week look like for you?
+                (School/work
+                hours, training, social, etc.)</label>
+              <textarea class="form-textarea" id="life-week-overall" name="life_week"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">On a scale from 1 to 10, how 'under control' does your life feel right
+                now?</label>
+              <div style="display: flex; justify-content: space-between; margin-top: 8px;">
+                <span style="font-size: 0.8rem; color: var(--text-tertiary);">1 (Chaos)</span>
+                <span style="font-size: 0.8rem; color: var(--text-tertiary);">10 (Total Control)</span>
+              </div>
+              <input type="range" id="life-control-overall" name="life_control" min="1" max="10"
+                style="width: 100%; margin-top: 8px;">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="life-fail-overall">Where do things usually fall apart? (Sleep,
+                planning,
+                follow-through, energy, distractions?)</label>
+              <textarea class="form-textarea" id="life-fail-overall" name="life_fail"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="life-fix-overall">If we fixed one thing about your system in the next
+                90 days,
+                what would you want it to be?</label>
+              <textarea class="form-textarea" id="life-fix-overall" name="life_fix"></textarea>
+            </div>
+          </div>
+
+          <!-- Strength Questions -->
+          <div class="flow-questions" data-flow="strength" style="display: none;">
+            <div class="form-group">
+              <label class="form-label" for="strength-goal-overall">What are you training for right now, if
+                anything?
+                (Races, events, or general goals)</label>
+              <textarea class="form-textarea" id="strength-goal-overall" name="strength_goal"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="strength-week-overall">What does your current training look like in a
+                typical
+                week? (Runs, lifts, cross-training, rest)</label>
+              <textarea class="form-textarea" id="strength-week-overall" name="strength_week"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="strength-injuries-overall">Any injuries, health issues, or constraints
+                I should
+                know about?</label>
+              <textarea class="form-textarea" id="strength-injuries-overall" name="strength_injuries"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="strength-win-overall">What would make the next 3–6 months of training
+                feel like
+                a clear win for you?</label>
+              <textarea class="form-textarea" id="strength-win-overall" name="strength_win"></textarea>
+            </div>
+          </div>
+
+          <!-- Nutrition Questions -->
+          <div class="flow-questions" data-flow="nutrition" style="display: none;">
+            <div class="form-group">
+              <label class="form-label" for="nutrition-day-overall">What does a normal day of eating look like for
+                you right
+                now? (Meals, snacks, drinks)</label>
+              <textarea class="form-textarea" id="nutrition-day-overall" name="nutrition_day"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="nutrition-feel-overall">How do you usually feel throughout the day?
+                (Energy,
+                focus, hunger, crashes, etc.)</label>
+              <textarea class="form-textarea" id="nutrition-feel-overall" name="nutrition_feel"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="nutrition-issues-overall">Any digestive issues, cravings, or patterns
+                you're
+                concerned about?</label>
+              <textarea class="form-textarea" id="nutrition-issues-overall" name="nutrition_issues"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="nutrition-goal-overall">What would you want your nutrition to do for
+                you?
+                (Performance, body composition, consistency, less stress?)</label>
+              <textarea class="form-textarea" id="nutrition-goal-overall" name="nutrition_goal"></textarea>
+            </div>
+          </div>
+
+          <!-- Unsure Questions -->
+          <div class="flow-questions" data-flow="unsure" style="display: none;">
+            <div class="form-group">
+              <label class="form-label" for="unsure-life-overall">What does your life look like right now in terms of
+                stress, workload, and responsibilities?</label>
+              <textarea class="form-textarea" id="unsure-life-overall" name="unsure_life" required></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="unsure-changes-overall">What are the top 2–3 changes you most want to see
+                in your life, training, or health over the next 6–12 months?</label>
+              <textarea class="form-textarea" id="unsure-changes-overall" name="unsure_changes" required></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">On a 1–10 scale, how sustainable does your current routine feel? Why?</label>
+              <div style="display: flex; justify-content: space-between; margin-top: 8px;">
+                <span style="font-size: 0.8rem; color: var(--text-tertiary);">1 (Unsustainable)</span>
+                <span style="font-size: 0.8rem; color: var(--text-tertiary);">10 (Very Sustainable)</span>
+              </div>
+              <input type="range" id="unsure-sustain-overall" name="unsure_sustain" min="1" max="10"
+                style="width: 100%; margin-top: 8px;">
+              <textarea class="form-textarea" id="unsure-sustain-why-overall" name="unsure_sustain_why"
+                placeholder="Why did you choose this number?" style="margin-top: 16px;" required></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="unsure-history-overall">Is there anything you want me to know about your
+                history with training, burnout, or health?</label>
+              <textarea class="form-textarea" id="unsure-history-overall" name="unsure_history"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3: Wrap Up -->
+        <div class="intake-step">
+          <h3 class="step-title">Final Details</h3>
+          <p class="step-description">Almost done.</p>
+
+          <div class="form-group">
+            <label class="form-label" for="urgent-focus-overall">What feels most urgent to improve in the next 3
+              months?</label>
+            <textarea class="form-textarea" id="urgent-focus-overall" name="urgent_focus" required></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="referral-overall">How did you hear about BANNR Systems?</label>
+            <input type="text" class="form-input" id="referral-overall" name="referral">
+          </div>
+
+          <p style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 24px;">
+            I'll read this carefully and reach out by email if it's a fit.
+          </p>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div class="form-actions">
+          <button type="button" class="btn-back" style="visibility: hidden;">Back</button>
+          <button type="button" class="btn-next">Next</button>
+          <button type="submit" class="btn-next" style="display: none;">Submit Intake</button>
+        </div>
+      </form>
+      </form>
+    </div>
+  </div>
+
+  <!-- 2. LIFE SYSTEMS INTAKE MODAL -->
+  <div class="modal-overlay" id="modal-life" aria-hidden="true">
+    <div class="intake-hub-card">
+      <button class="modal-close" aria-label="Close modal">&times;</button>
+      <div class="section-header" style="margin-bottom: 24px;">
+        <h2 class="section-title">Life Systems Coaching</h2>
+        <p class="section-subtitle">Build a daily structure that holds under load.</p>
+      </div>
+      <!-- Success Message -->
+      <div id="intake-life-success" class="success-message" style="display: none;">
+        <svg class="success-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        <h3 class="section-title" style="font-size: 1.8rem; margin-bottom: 16px;">System Received</h3>
+        <p class="section-subtitle">
+          Thanks for filling this out. I'll review your intake and email you if it's a fit.
+        </p>
+      </div>
+
+      <!-- Intake Form -->
+      <form class="intake-form" data-flow="life">
+        <div class="intake-progress-container">
+          <span class="intake-progress-text">Step 1 of 3</span>
+          <div class="intake-progress-bar">
+            <div class="intake-progress-fill"></div>
+          </div>
+        </div>
+
+        <!-- Step 1: Foundation (Demographics) -->
+        <div class="intake-step active">
+          <h3 class="step-title">The Foundation</h3>
+          <p class="step-description">Tell me a bit about who you are.</p>
+
+          <div class="form-group">
+            <label class="form-label" for="name-life">Full Name</label>
+            <input type="text" class="form-input" id="name-life" name="name" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="email-life">Email Address</label>
+            <input type="email" class="form-input" id="email-life" name="email" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="phone-life">Phone Number</label>
+            <input type="tel" class="form-input" id="phone-life" name="phone" required>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div class="form-group">
+              <label class="form-label" for="location-life">Location</label>
+              <input type="text" class="form-input" id="location-life" name="location" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="age-life">Age</label>
+              <input type="number" class="form-input" id="age-life" name="age" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="role-life">Current Role / Student Status</label>
+            <input type="text" class="form-input" id="role-life" name="role"
+              placeholder="Student, founder, employee, athlete, etc." required>
+          </div>
+        </div>
+
+        <!-- Step 2: Life Questions -->
+        <div class="intake-step">
+          <h3 class="step-title">Your System</h3>
+          <p class="step-description">Where is the friction?</p>
+
+          <div class="form-group">
+            <label class="form-label" for="life-week">What does a typical week look like for you? (School/work
+              hours, training, social, etc.)</label>
+            <textarea class="form-textarea" id="life-week" name="life_week" required></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">On a scale from 1 to 10, how 'under control' does your life feel right
+              now?</label>
+            <div style="display: flex; justify-content: space-between; margin-top: 8px;">
+              <span style="font-size: 0.8rem; color: var(--text-tertiary);">1 (Chaos)</span>
+              <span style="font-size: 0.8rem; color: var(--text-tertiary);">10 (Total Control)</span>
+            </div>
+            <input type="range" id="life-control" name="life_control" min="1" max="10"
+              style="width: 100%; margin-top: 8px;">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="life-fail">Where do things usually fall apart? (Sleep, planning,
+              follow-through, energy, distractions?)</label>
+            <textarea class="form-textarea" id="life-fail" name="life_fail" required></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="life-fix">If we fixed one thing about your system in the next 90 days,
+              what would you want it to be?</label>
+            <textarea class="form-textarea" id="life-fix" name="life_fix" required></textarea>
+          </div>
+        </div>
+
+        <!-- Step 3: Wrap Up -->
+        <div class="intake-step">
+          <h3 class="step-title">Final Details</h3>
+          <div class="form-group">
+            <label class="form-label" for="urgent-focus-life">What feels most urgent to improve in the next 3
+              months?</label>
+            <textarea class="form-textarea" id="urgent-focus-life" name="urgent_focus" required></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="referral-life">How did you hear about BANNR Systems?</label>
+            <input type="text" class="form-input" id="referral-life" name="referral">
+          </div>
+          <p style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 24px;">
+            I'll read this carefully and reach out by email if it's a fit.
+          </p>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn-back" style="visibility: hidden;">Back</button>
+          <button type="button" class="btn-next">Next</button>
+          <button type="submit" class="btn-next" style="display: none;">Submit Intake</button>
+        </div>
+      </form>
+      </form>
+    </div>
+  </div>
+
+  <!-- 3. STRENGTH INTAKE MODAL -->
+  <div class="modal-overlay" id="modal-strength" aria-hidden="true">
+    <div class="intake-hub-card">
+      <button class="modal-close" aria-label="Close modal">&times;</button>
+      <div class="section-header" style="margin-bottom: 24px;">
+        <h2 class="section-title">Strength & Endurance Coaching</h2>
+        <p class="section-subtitle">Hybrid training for real life.</p>
+      </div>
+      <!-- Success Message -->
+      <div id="intake-strength-success" class="success-message" style="display: none;">
+        <svg class="success-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        <h3 class="section-title" style="font-size: 1.8rem; margin-bottom: 16px;">System Received</h3>
+        <p class="section-subtitle">Thanks for filling this out. I'll review your intake and email you if it's a
+          fit.</p>
+      </div>
+
+      <!-- Intake Form -->
+      <form class="intake-form" data-flow="strength">
+        <div class="intake-progress-container">
+          <span class="intake-progress-text">Step 1 of 3</span>
+          <div class="intake-progress-bar">
+            <div class="intake-progress-fill"></div>
+          </div>
+        </div>
+
+        <!-- Step 1: Foundation -->
+        <div class="intake-step active">
+          <h3 class="step-title">The Foundation</h3>
+          <p class="step-description">Tell me a bit about who you are.</p>
+
+          <div class="form-group">
+            <label class="form-label" for="name-strength">Full Name</label>
+            <input type="text" class="form-input" id="name-strength" name="name" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="email-strength">Email Address</label>
+            <input type="email" class="form-input" id="email-strength" name="email" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="phone-strength">Phone Number</label>
+            <input type="tel" class="form-input" id="phone-strength" name="phone" required>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div class="form-group">
+              <label class="form-label" for="location-strength">Location</label>
+              <input type="text" class="form-input" id="location-strength" name="location" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="age-strength">Age</label>
+              <input type="number" class="form-input" id="age-strength" name="age" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="role-strength">Current Role / Student Status</label>
+            <input type="text" class="form-input" id="role-strength" name="role"
+              placeholder="Student, founder, employee, athlete, etc." required>
+          </div>
+        </div>
+
+        <!-- Step 2: Strength Questions -->
+        <div class="intake-step">
+          <h3 class="step-title">Training Profile</h3>
+          <p class="step-description">What are we training for?</p>
+          <div class="form-group"><label class="form-label">What are you training for right now, if
+              anything?</label><textarea class="form-textarea" name="strength_goal" required></textarea></div>
+          <div class="form-group"><label class="form-label">What does your current training look like in a typical
+              week?</label><textarea class="form-textarea" name="strength_week" required></textarea></div>
+          <div class="form-group"><label class="form-label">Any injuries, health issues, or
+              constraints?</label><textarea class="form-textarea" name="strength_injuries"></textarea></div>
+          <div class="form-group"><label class="form-label">What would make the next 3–6 months feel like a clear
+              win?</label><textarea class="form-textarea" name="strength_win" required></textarea></div>
+        </div>
+
+        <!-- Step 3: Wrap Up -->
+        <div class="intake-step">
+          <h3 class="step-title">Final Details</h3>
+          <div class="form-group"><label class="form-label">What feels most urgent to improve in the next 3
+              months?</label><textarea class="form-textarea" name="urgent_focus" required></textarea></div>
+          <div class="form-group"><label class="form-label">How did you hear about BANNR Systems?</label><input
+              type="text" class="form-input" name="referral"></div>
+          <p style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 24px;">I'll read this carefully and
+            reach out by email if it's a fit.</p>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn-back" style="visibility: hidden;">Back</button>
+          <button type="button" class="btn-next">Next</button>
+          <button type="submit" class="btn-next" style="display: none;">Submit Intake</button>
+        </div>
+      </form>
+      </form>
+    </div>
+  </div>
+
+  <!-- 4. NUTRITION INTAKE MODAL -->
+  <div class="modal-overlay" id="modal-nutrition" aria-hidden="true">
+    <div class="intake-hub-card">
+      <button class="modal-close" aria-label="Close modal">&times;</button>
+      <div class="section-header" style="margin-bottom: 24px;">
+        <h2 class="section-title">Nutrition Coaching</h2>
+        <p class="section-subtitle">Fuel the machine. Simple, sustainable, effective.</p>
+      </div>
+      <!-- Success Message -->
+      <div id="intake-nutrition-success" class="success-message" style="display: none;">
+        <svg class="success-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        <h3 class="section-title" style="font-size: 1.8rem; margin-bottom: 16px;">System Received</h3>
+        <p class="section-subtitle">Thanks for filling this out. I'll review your intake and email you if it's a
+          fit.</p>
+      </div>
+
+      <!-- Intake Form -->
+      <form class="intake-form" data-flow="nutrition">
+        <div class="intake-progress-container">
+          <span class="intake-progress-text">Step 1 of 3</span>
+          <div class="intake-progress-bar">
+            <div class="intake-progress-fill"></div>
+          </div>
+        </div>
+
+        <!-- Step 1: Foundation -->
+        <div class="intake-step active">
+          <h3 class="step-title">The Foundation</h3>
+          <p class="step-description">Tell me a bit about who you are.</p>
+
+          <div class="form-group">
+            <label class="form-label" for="name-nutrition">Full Name</label>
+            <input type="text" class="form-input" id="name-nutrition" name="name" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="email-nutrition">Email Address</label>
+            <input type="email" class="form-input" id="email-nutrition" name="email" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="phone-nutrition">Phone Number</label>
+            <input type="tel" class="form-input" id="phone-nutrition" name="phone" required>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div class="form-group">
+              <label class="form-label" for="location-nutrition">Location</label>
+              <input type="text" class="form-input" id="location-nutrition" name="location" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="age-nutrition">Age</label>
+              <input type="number" class="form-input" id="age-nutrition" name="age" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="role-nutrition">Current Role / Student Status</label>
+            <input type="text" class="form-input" id="role-nutrition" name="role"
+              placeholder="Student, founder, employee, athlete, etc." required>
+          </div>
+        </div>
+
+        <!-- Step 2: Nutrition Questions -->
+        <div class="intake-step">
+          <h3 class="step-title">Fueling Profile</h3>
+          <p class="step-description">How are you fueling?</p>
+          <div class="form-group"><label class="form-label">What does a normal day of eating look like for you right
+              now?</label><textarea class="form-textarea" name="nutrition_day" required></textarea></div>
+          <div class="form-group"><label class="form-label">How do you usually feel throughout the
+              day?</label><textarea class="form-textarea" name="nutrition_feel" required></textarea></div>
+          <div class="form-group"><label class="form-label">Any digestive issues, cravings, or
+              patterns?</label><textarea class="form-textarea" name="nutrition_issues"></textarea></div>
+          <div class="form-group"><label class="form-label">What would you want your nutrition to do for
+              you?</label><textarea class="form-textarea" name="nutrition_goal" required></textarea></div>
+        </div>
+
+        <!-- Step 3: Wrap Up -->
+        <div class="intake-step">
+          <h3 class="step-title">Final Details</h3>
+          <div class="form-group"><label class="form-label">What feels most urgent to improve in the next 3
+              months?</label><textarea class="form-textarea" name="urgent_focus" required></textarea></div>
+          <div class="form-group"><label class="form-label">How did you hear about BANNR Systems?</label><input
+              type="text" class="form-input" name="referral"></div>
+          <p style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 24px;">I'll read this carefully and
+            reach out by email if it's a fit.</p>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn-back" style="visibility: hidden;">Back</button>
+          <button type="button" class="btn-next">Next</button>
+          <button type="submit" class="btn-next" style="display: none;">Submit Intake</button>
+        </div>
+      </form>
+      </form>
+    </div>
+  </div>
+
+
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="footer-content">
+      <p class="footer-text">
+        © <span id="year"></span> BANNR Systems. All rights reserved.
+      </p>
+      <p class="footer-tagline">
+        Science-backed, lived-tested, brutally simple.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Scroll to Top Button -->
+  <button id="scroll-top" aria-label="Scroll to top">↑</button>
+
+  <style>
+    /* ========== MODAL STYLES ========== */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      padding: 20px;
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .modal-overlay .intake-hub-card {
+      max-height: 90vh;
+      overflow-y: auto;
+      margin: 0;
+      position: relative;
+      transform: translateY(20px);
+      transition: transform 0.3s ease;
+    }
+
+    .modal-overlay.open .intake-hub-card {
+      transform: translateY(0);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--text-secondary);
+      cursor: pointer;
+      padding: 4px;
+      line-height: 1;
+      z-index: 10;
+      transition: color 0.2s ease;
+    }
+
+    .modal-close:hover {
+      color: var(--text-primary);
+    }
+
+    /* Prevent body scroll when modal is open */
+    body.modal-open {
+      overflow: hidden;
+    }
+  </style>
+
+  <!-- JavaScript -->
+  <script>
+    // ========== PAGE LOADER ==========
+    window.addEventListener('load', function () {
+      setTimeout(function () {
+        document.getElementById('page-loader').classList.add('hidden');
+      }, 500);
+    });
+
+    // ========== SCROLL PROGRESS BAR ==========
+    function updateScrollProgress() {
+      const bar = document.getElementById('scroll-progress');
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+      bar.style.width = progress + '%';
+    }
+    window.addEventListener('scroll', updateScrollProgress);
+
+    // ========== MOBILE MENU ==========
+    const mobileToggle = document.getElementById('mobile-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileOverlay = document.getElementById('mobile-overlay');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
+
+    function toggleMobileMenu() {
+      mobileToggle.classList.toggle('active');
+      mobileMenu.classList.toggle('active');
+      mobileOverlay.classList.toggle('active');
+      document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+    }
+
+    mobileToggle.addEventListener('click', toggleMobileMenu);
+    mobileOverlay.addEventListener('click', toggleMobileMenu);
+    mobileLinks.forEach(link => link.addEventListener('click', toggleMobileMenu));
+
+    // ========== SMOOTH SCROLL ==========
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', function (e) {
+        const targetId = this.getAttribute('href').substring(1);
+        const target = document.getElementById(targetId);
+        if (target) {
+          e.preventDefault();
+          window.scrollTo({
+            top: target.offsetTop - 70,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+
+    // ========== SCROLL ANIMATIONS ==========
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // ========== SCROLL TO TOP BUTTON ==========
+    const scrollTopBtn = document.getElementById('scroll-top');
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 500) {
+        scrollTopBtn.classList.add('visible');
+      } else {
+        scrollTopBtn.classList.remove('visible');
+      }
+    });
+    scrollTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // ========== DYNAMIC YEAR ==========
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // ========== PHILOSOPHY FLIP DECK ==========
+    const cards = document.querySelectorAll('.philosophy-card');
+    const prevBtn = document.getElementById('deck-prev');
+    const nextBtn = document.getElementById('deck-next');
+    const currentDisplay = document.getElementById('deck-current');
+    const dots = document.querySelectorAll('.deck-dot');
+    let currentCard = 0;
+    const totalCards = cards.length;
+
+    function updateDeck() {
+      // Update cards
+      cards.forEach((card, index) => {
+        card.classList.remove('active', 'prev');
+        if (index === currentCard) {
+          card.classList.add('active');
+        } else if (index < currentCard) {
+          card.classList.add('prev');
+        }
+      });
+
+      // Update dots
+      dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentCard);
+      });
+
+      // Update counter
+      currentDisplay.textContent = currentCard + 1;
+
+      // Update buttons
+      prevBtn.disabled = currentCard === 0;
+      nextBtn.disabled = currentCard === totalCards - 1;
+    }
+
+    prevBtn.addEventListener('click', () => {
+      if (currentCard > 0) {
+        currentCard--;
+        updateDeck();
+      }
+    });
+
+    nextBtn.addEventListener('click', () => {
+      if (currentCard < totalCards - 1) {
+        currentCard++;
+        updateDeck();
+      }
+    });
+
+    // Keyboard navigation for deck
+    document.addEventListener('keydown', (e) => {
+      const deckSection = document.getElementById('philosophy');
+      const rect = deckSection.getBoundingClientRect();
+      const isInView = rect.top < window.innerHeight && rect.bottom >= 0;
+
+      if (isInView && !mobileMenu.classList.contains('active')) {
+        if (e.key === 'ArrowLeft' && currentCard > 0) {
+          currentCard--;
+          updateDeck();
+        } else if (e.key === 'ArrowRight' && currentCard < totalCards - 1) {
+          currentCard++;
+          updateDeck();
+        }
+      }
+    });
+
+    // ========== KEYBOARD NAV (ESC TO CLOSE MENU) ==========
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+        toggleMobileMenu();
+      }
+    });
+
+    // ========== MODAL LOGIC ==========
+    const modalButtons = document.querySelectorAll('[data-modal-target]');
+    const modalCloseButtons = document.querySelectorAll('.modal-close');
+    const modals = document.querySelectorAll('.modal-overlay');
+
+    function openModal(modalId) {
+      const modal = document.getElementById(modalId);
+      if (modal) {
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('modal-open');
+      }
+    }
+
+    function closeModal(modal) {
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('modal-open');
+    }
+
+    modalButtons.forEach(button => {
+      button.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = button.getAttribute('data-modal-target');
+        openModal(targetId);
+      });
+    });
+
+    modalCloseButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const modal = button.closest('.modal-overlay');
+        closeModal(modal);
+      });
+    });
+
+    modals.forEach(modal => {
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          closeModal(modal);
+        }
+      });
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        const openModal = document.querySelector('.modal-overlay.open');
+        if (openModal) {
+          closeModal(openModal);
+        }
+      }
+    });
+
+    // ========== INTAKE HUB LOGIC (MULTI-FORM) ==========
+
+    // Global store for form instances
+    window.intakeForms = {};
+
+    // Class to handle each independent form
+    class IntakeForm {
+      constructor(formElement) {
+        this.form = formElement;
+        this.flowType = this.form.dataset.flow;
+        this.steps = Array.from(this.form.querySelectorAll('.intake-step'));
+        this.btnNext = this.form.querySelector('.btn-next:not([type="submit"])');
+        this.btnSubmit = this.form.querySelector('.btn-next[type="submit"]');
+        this.btnBack = this.form.querySelector('.btn-back');
+        this.progressText = this.form.querySelector('.intake-progress-text');
+        this.progressFill = this.form.querySelector('.intake-progress-fill');
+        this.successMessage = this.form.previousElementSibling; // Assuming success div is right before form
+
+        this.currentStep = 0;
+        this.totalSteps = this.steps.length;
+
+        this.init();
+      }
+
+      init() {
+        this.updateUI();
+        this.addEventListeners();
+      }
+
+      addEventListeners() {
+        if (this.btnNext) {
+          this.btnNext.addEventListener('click', () => this.nextStep());
+        }
+
+        if (this.btnBack) {
+          this.btnBack.addEventListener('click', () => this.prevStep());
+        }
+
+        this.form.addEventListener('submit', (e) => this.handleSubmit(e));
+      }
+
+      nextStep() {
+        if (this.validateStep(this.currentStep)) {
+          // Check for routing if we are on the "Choose Path" step
+          if (this.handleRouting()) {
+            return; // Stop if we redirected
+          }
+
+          this.currentStep++;
+          this.updateUI();
+          // Scroll to top of this form's section
+          const section = this.form.closest('section') || this.form.closest('.intake-hub-card');
+          if (section) {
+            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }
+      }
+
+      prevStep() {
+        if (this.currentStep > 0) {
+          this.currentStep--;
+          this.updateUI();
+        }
+      }
+
+      handleRouting() {
+        // Only route if we are in the "overall" flow and on the step with radio buttons
+        if (this.flowType !== 'overall') return false;
+
+        const currentStepEl = this.steps[this.currentStep];
+        const selectedFlowInput = currentStepEl.querySelector('input[name="flow"]:checked');
+
+        if (selectedFlowInput) {
+          const flowValue = selectedFlowInput.value;
+
+          // If Unsure, just proceed to next step in this form
+          if (flowValue === 'unsure') {
+            return false;
+          }
+
+          // If specific flow, redirect
+          if (['life', 'strength', 'nutrition'].includes(flowValue)) {
+            this.redirectToFlow(flowValue);
+            return true;
+          }
+        }
+
+        return false;
+      }
+
+      redirectToFlow(targetFlow) {
+        // 1. Get target form instance
+        const targetInstance = window.intakeForms[targetFlow];
+        if (!targetInstance) {
+          console.error(`Target flow '${targetFlow}' not found.`);
+          return;
+        }
+
+        // 2. Copy data from current form (Foundation) to target form
+        const currentFormData = new FormData(this.form);
+        for (let [key, value] of currentFormData.entries()) {
+          const targetInput = targetInstance.form.querySelector(`[name="${key}"]`);
+          if (targetInput) {
+            targetInput.value = value;
+          }
+        }
+
+        // 3. Close current modal
+        const currentModal = this.form.closest('.modal-overlay');
+        closeModal(currentModal);
+
+        // 4. Open target modal
+        const targetModal = targetInstance.form.closest('.modal-overlay');
+        openModal(targetModal.id);
+
+        // 5. Set target form to Step 1 (skip Foundation)
+        targetInstance.currentStep = 1;
+        targetInstance.updateUI();
+      }
+
+      updateUI() {
+        // Show/Hide Steps
+        this.steps.forEach((step, index) => {
+          if (index === this.currentStep) {
+            step.classList.add('active');
+
+            // Special handling for "Deep Dive" step in Overall flow (Unsure path)
+            if (this.flowType === 'overall' && step.querySelector('.flow-questions')) {
+              const unsureQuestions = step.querySelector('.flow-questions[data-flow="unsure"]');
+              if (unsureQuestions) unsureQuestions.style.display = 'block';
+            }
+
+          } else {
+            step.classList.remove('active');
+          }
+        });
+
+        // Update Progress
+        const progress = ((this.currentStep + 1) / this.totalSteps) * 100;
+        if (this.progressFill) this.progressFill.style.width = `${progress}%`;
+        if (this.progressText) this.progressText.textContent = `Step ${this.currentStep + 1} of ${this.totalSteps}`;
+
+        // Button Visibility
+        if (this.btnBack) {
+          this.btnBack.style.visibility = this.currentStep === 0 ? 'hidden' : 'visible';
+        }
+
+        if (this.currentStep === this.totalSteps - 1) {
+          if (this.btnNext) this.btnNext.style.display = 'none';
+          if (this.btnSubmit) this.btnSubmit.style.display = 'block';
+        } else {
+          if (this.btnNext) this.btnNext.style.display = 'block';
+          if (this.btnSubmit) this.btnSubmit.style.display = 'none';
+        }
+      }
+
+      validateStep(stepIndex) {
+        const currentStepEl = this.steps[stepIndex];
+        const inputs = currentStepEl.querySelectorAll('input, textarea, select');
+        let valid = true;
+
+        inputs.forEach(input => {
+          if (!input.checkValidity()) {
+            valid = false;
+            input.reportValidity();
+          }
+        });
+
+        return valid;
+      }
+
+      handleSubmit(e) {
+        e.preventDefault();
+
+        const formData = new FormData(this.form);
+        const data = Object.fromEntries(formData.entries());
+
+        // Add flow identifier
+        data.flow = this.form.dataset.flow || 'unknown';
+
+        // Disable button
+        if (this.btnSubmit) {
+          this.btnSubmit.disabled = true;
+          this.btnSubmit.textContent = 'Sending...';
+        }
+
+        // Send
+        this.submitData(data);
+      }
+
+      submitData(data) {
+        console.log('Intake submitted:', data);
+
+        // Send to Google Sheets
+        sendToGoogleSheets(data);
+
+        // Show success message
+        this.form.style.display = 'none';
+        if (this.successMessage) {
+          this.successMessage.style.display = 'block';
+          this.successMessage.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    }
+
+    // Initialize all forms and store instances
+    document.querySelectorAll('.intake-form').forEach(form => {
+      const flow = form.dataset.flow;
+      window.intakeForms[flow] = new IntakeForm(form);
+    });
+
+    // ========== DATA SYNCING ACROSS FORMS ==========
+    // Keep demographic info in sync across all forms
+    const commonFields = ['name', 'email', 'phone', 'location', 'age', 'role'];
+
+    commonFields.forEach(fieldName => {
+      // Select all inputs with this name attribute across all forms
+      const inputs = document.querySelectorAll(`input[name="${fieldName}"]`);
+
+      inputs.forEach(input => {
+        input.addEventListener('input', (e) => {
+          const newValue = e.target.value;
+          // Update all other inputs with the same name
+          inputs.forEach(otherInput => {
+            if (otherInput !== input) {
+              otherInput.value = newValue;
+            }
+          });
+        });
+      });
+    });
+
+    // PLACEHOLDER: Replace with your actual Google Apps Script Web App URL
+    const GOOGLE_SHEETS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwfSE0IXphhDIXSR149pmlIhhu4OCIH0aTTVUKWVIoOy2jPpKr1M2EabTYuKr5txZi-/exec';
+
+    function sendToGoogleSheets(data) {
+      // Use no-cors mode if testing with a simple script, or cors if properly set up.
+      // Usually Google Apps Script requires 'no-cors' for simple POSTs from client-side, 
+      // but that prevents reading the response.
+      fetch(GOOGLE_SHEETS_ENDPOINT, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'text/plain;charset=utf-8',
+        },
+        body: JSON.stringify(data)
+      })
+        .then(response => {
+          console.log('Sent to Sheets');
+        })
+        .catch(error => {
+          console.error('Error sending to Sheets:', error);
+          // We don't show error to user, as per requirements
+        });
+    }
+  </script>
+</body>
+
+</html>
